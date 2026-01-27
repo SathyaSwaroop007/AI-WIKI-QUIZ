@@ -3,7 +3,7 @@ import google.generativeai as genai
 Utility script to validate LLM connectivity for quiz generation service.
 """
 # Configure API
-GEMINI_API_KEY = "AIzaSyABCoCTQ4hwd5O8-oWjnZ2j2H02qYa1Xis"
+GEMINI_API_KEY = "Gemini_API_KEY"
 genai.configure(api_key=GEMINI_API_KEY)
 
 print("Testing Gemini API connection...\n")
