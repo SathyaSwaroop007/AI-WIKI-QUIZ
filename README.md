@@ -222,9 +222,17 @@ Internal error: Gemini API or database failure
 ## Why This Project
 
 This project demonstrates the ability to integrate Generative AI into real systems, design production-ready APIs, handle unstructured data, and build scalable backend architectures.
-
 ---
 
 ## Screenshots
 
 FastAPI Swagger UI – WikiQuiz AI
+<img width="1920" height="1080" alt="Screenshot 2026-01-27 093832" src="https://github.com/user-attachments/assets/f2196e11-60d9-4807-8045-47aad1fc43f1" />
+<img width="1920" height="1080" alt="Screenshot 2026-01-27 093730" src="https://github.com/user-attachments/assets/ec4dfb15-c6e9-4480-93a2-920f079ad2de" />
+<img width="1920" height="1080" alt="Screenshot 2026-01-27 093716" src="https://github.com/user-attachments/assets/74811385-aa20-46e9-a11b-cf393369b89a" />
+<img width="1920" height="1080" alt="Screenshot 2026-01-27 094128" src="https://github.com/user-attachments/assets/436d057f-c1aa-4e46-94e0-92c6978a07a4" />
+<img width="1920" height="1080" alt="Screenshot 2026-01-27 094055" src="https://github.com/user-attachments/assets/35d64211-c02c-4598-8659-ce05467853e8" />
+<img width="1920" height="1080" alt="Screenshot 2026-01-27 094033" src="https://github.com/user-attachments/assets/d67de1da-0002-411a-bb25-c8c709ba821f" />
+<img width="1920" height="1080" alt="Screenshot 2026-01-27 094015" src="https://github.com/user-attachments/assets/501031c2-1886-43f9-944f-d1ce16b4d47f" />
+<img width="1920" height="1080" alt="Screenshot 2026-01-27 093913" src="https://github.com/user-attachments/assets/2d6faa00-498b-4fd6-9f35-a87465a015e3" />
+
