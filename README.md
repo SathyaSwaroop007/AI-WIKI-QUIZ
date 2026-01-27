@@ -1,52 +1,60 @@
-# WikiQuiz AI
-AI-Powered Wikipedia Quiz Generator
+# WikiQuiz AI 🧠  
+**Turn Wikipedia into interactive learning — instantly**
 
-A full-stack application that transforms Wikipedia articles into structured, high-quality quizzes using Generative AI, RESTful APIs, and persistent storage.
+WikiQuiz AI is a full-stack application that converts Wikipedia articles into structured, high-quality quizzes using Generative AI.
 
-This project is designed to demonstrate backend engineering skills, AI integration, API design, and database modeling in a production-oriented manner.
+Instead of passively reading long articles, users can actively test their understanding through automatically generated questions, explanations, and difficulty levels — all powered by a production-ready backend.
 
----
-
-## Problem Statement
-
-Wikipedia is a powerful knowledge source, but learning from it is mostly passive.
-
-WikiQuiz AI converts encyclopedic content into interactive quizzes, enabling active learning and knowledge validation.
+This project is built to showcase **real-world backend engineering**, **AI integration**, and **API-first design**.
 
 ---
 
-## Solution Overview
+## Why WikiQuiz AI?
 
-- Scrapes and cleans Wikipedia article content
-- Uses Google Gemini to generate contextual quiz questions
-- Enforces deterministic quiz rules (count, difficulty, explanations)
-- Persists quizzes and questions in MySQL
-- Exposes a clean FastAPI-based REST API
+Wikipedia is one of the richest knowledge bases in the world — but learning from it is mostly passive.
+
+WikiQuiz AI changes that by:
+- Turning articles into quizzes  
+- Encouraging active recall  
+- Helping users validate what they’ve actually learned  
+
+---
+
+## What It Does
+
+1. Takes a Wikipedia article URL  
+2. Scrapes and cleans the article content  
+3. Uses Google Gemini to generate quiz questions  
+4. Applies strict rules to ensure consistency and quality  
+5. Stores quizzes and questions in a relational database  
+6. Exposes everything through a clean REST API  
 
 ---
 
 ## Key Features
 
-- AI-generated quizzes with explanations
-- Difficulty levels: Easy, Medium, Hard
-- Quiz history with timestamps
-- Related topics suggested by AI
-- RESTful API with validation and CORS
-- Persistent storage using MySQL
+- AI-generated quizzes with clear explanations  
+- Difficulty levels: **Easy, Medium, Hard**  
+- Fixed, deterministic quiz structure  
+- Quiz history with timestamps  
+- AI-suggested related topics  
+- RESTful FastAPI backend  
+- Persistent storage with MySQL  
 
 ---
 
 ## System Architecture
 
 React Frontend
-      ↓
+↓
 FastAPI Backend
-      ↓
+↓
 Wikipedia Scraper (BeautifulSoup)
-      ↓
+↓
 Google Gemini API
-      ↓
+↓
 MySQL Database
+
 
 ---
 
@@ -70,171 +78,158 @@ MySQL Database
 
 AI_WIKI/
 ├── backend/
-│   ├── main.py          # FastAPI application
-│   ├── requirements.txt
-│   ├── myenv/           # Virtual environment
-│   └── test_gemini.py   # Gemini API testing
+│ ├── main.py # FastAPI application
+│ ├── requirements.txt
+│ ├── myenv/ # Virtual environment
+│ └── test_gemini.py # Gemini API testing
 ├── frontend/
-│   └── src/
+│ └── src/
 └── README.md
 
+
 ---
 
-## Installation and Setup
+## Installation & Setup
 
-### 1. Clone and Navigate
+### 1. Navigate to Backend
+```bash
 cd backend
-
-### 2. Create Virtual Environment
+2. Create Virtual Environment
 python -m venv myenv
-
-### 3. Activate Environment (Windows)
+3. Activate Environment (Windows)
 .\myenv\Scripts\Activate
-
-### 4. Install Dependencies
+4. Install Dependencies
 pip install -r requirements.txt
-
----
-
-## Database Setup
-
+Database Setup
 Ensure MySQL is running, then execute:
 
 CREATE USER 'quiz_user'@'localhost' IDENTIFIED BY 'quiz_password_123';
 CREATE DATABASE wiki_quiz_db;
 GRANT ALL PRIVILEGES ON wiki_quiz_db.* TO 'quiz_user'@'localhost';
 FLUSH PRIVILEGES;
+⚠️ Update credentials before production use.
 
-Update credentials before production use.
-
----
-
-## Gemini API Configuration
-
+Gemini API Configuration
 In main.py, set:
 
 GEMINI_API_KEY = "YOUR_API_KEY"
+Get your API key from Google AI Studio.
 
-Get the API key from Google AI Studio.
-
----
-
-## Running the Application
-
+Running the Application
 python -m uvicorn main:app --reload
-
 Server runs at:
 
 http://127.0.0.1:8000
+API Documentation
+Swagger UI: /docs
 
-### API Documentation
-- Swagger UI: /docs
-- ReDoc: /redoc
+ReDoc: /redoc
 
----
-
-## API Endpoints
-
-### Health Check
+API Endpoints
+Health Check
 GET /
-
-### Generate Quiz
+Generate Quiz
 POST /generate-quiz
+Request Body
 
-Request body:
 {
   "url": "https://en.wikipedia.org/wiki/Artificial_intelligence"
 }
-
-### Get All Quizzes
+Get All Quizzes
 GET /quizzes
-
-### Get Quiz by ID
+Get Quiz by ID
 GET /quiz/{quiz_id}
+Quiz Generation Rules
+To ensure consistent AI output, strict constraints are enforced:
 
----
+Exactly 7 questions
 
-## Quiz Generation Rules
+4 options per question (A–D)
 
-The AI is constrained to ensure consistency:
+Difficulty distribution:
 
-- Exactly 7 questions
-- 4 options per question (A–D)
-- Difficulty distribution:
-  - 2–3 Easy
-  - 3–4 Medium
-  - 1–2 Hard
-- Short explanations for each answer
-- 5 related topics
+2–3 Easy
 
----
+3–4 Medium
 
-## Database Schema
+1–2 Hard
 
-### quizzes Table
-- Article URL
-- Title and summary
-- Related topics (JSON)
-- Creation timestamp
+Short explanation for every answer
 
-### questions Table
-- Question text
-- Options (JSON)
-- Correct answer
-- Explanation
-- Difficulty level
+5 related topics per quiz
 
-Foreign key constraints enforce relational integrity.
+Database Design
+quizzes Table
+Article URL
 
----
+Title
 
-## Common Errors
+Summary
 
-Invalid Wikipedia URL: URL must use https://en.wikipedia.org/wiki/...
-Short article: Article content too small
-Internal error: Gemini API or database failure
+Related topics (JSON)
 
----
+Created timestamp
 
-## Engineering Highlights
+questions Table
+Question text
 
-- Deterministic AI outputs via strict prompting
-- Clean separation of concerns
-- Scalable REST API design
-- Proper relational data modeling
-- Defensive error handling
+Options (JSON)
 
----
+Correct answer
 
-## Future Enhancements
+Explanation
 
-- User authentication and personalization
-- Multi-language quiz generation
-- Custom quiz length
-- Difficulty-based filtering
-- Shareable quiz links
-- Analytics dashboard
-- PDF and CSV export
-- Live quiz mode with scoring
+Difficulty level
 
----
+Foreign key constraints ensure relational integrity.
 
-## Why This Project
+Common Errors Handled
+Invalid Wikipedia URL
 
-This project demonstrates the ability to integrate Generative AI into real systems, design production-ready APIs, handle unstructured data, and build scalable backend architectures.
----
+Article too short to generate a quiz
 
-## Screenshots
+Gemini API failures
 
+Database connection issues
+
+All handled defensively with meaningful API responses.
+
+Engineering Highlights
+Deterministic AI behavior via strict prompting
+
+Clean separation of concerns
+
+Production-style REST API design
+
+Relational database modeling
+
+Robust error handling
+
+Future Enhancements
+User authentication & personalization
+
+Multi-language quiz generation
+
+Custom quiz length
+
+Difficulty-based filtering
+
+Shareable quiz links
+
+Analytics dashboard
+
+PDF / CSV export
+
+Live quiz mode with scoring
+
+Screenshots
 Quiz Generation Page
-<img width="1920" height="1080" alt="Screenshot 2026-01-27 093716" src="https://github.com/user-attachments/assets/74811385-aa20-46e9-a11b-cf393369b89a" />
+<img width="1920" height="1080" alt="Quiz Generation Page" src="https://github.com/user-attachments/assets/74811385-aa20-46e9-a11b-cf393369b89a" />
 History View
-<img width="1920" height="1080" alt="Screenshot 2026-01-27 093730" src="https://github.com/user-attachments/assets/ec4dfb15-c6e9-4480-93a2-920f079ad2de" />
-Details Model
-<img width="1920" height="1080" alt="Screenshot 2026-01-27 093913" src="https://github.com/user-attachments/assets/2d6faa00-498b-4fd6-9f35-a87465a015e3" />
+<img width="1920" height="1080" alt="History View" src="https://github.com/user-attachments/assets/ec4dfb15-c6e9-4480-93a2-920f079ad2de" />
+Quiz Details Modal
+<img width="1920" height="1080" alt="Quiz Details Modal" src="https://github.com/user-attachments/assets/2d6faa00-498b-4fd6-9f35-a87465a015e3" />
 Tested URLs
-<img width="1920" height="1080" alt="Screenshot 2026-01-27 093832" src="https://github.com/user-attachments/assets/f2196e11-60d9-4807-8045-47aad1fc43f1" />
-<img width="1920" height="1080" alt="Screenshot 2026-01-27 094015" src="https://github.com/user-attachments/assets/501031c2-1886-43f9-944f-d1ce16b4d47f" />
-JSON API Outputs
-<img width="1920" height="1080" alt="Screenshot 2026-01-27 094128" src="https://github.com/user-attachments/assets/436d057f-c1aa-4e46-94e0-92c6978a07a4" />
-
+<img width="1920" height="1080" alt="Tested URLs" src="https://github.com/user-attachments/assets/f2196e11-60d9-4807-8045-47aad1fc43f1" /> <img width="1920" height="1080" alt="More Tested URLs" src="https://github.com/user-attachments/assets/501031c2-1886-43f9-944f-d1ce16b4d47f" />
+JSON API Output
+<img width="1920" height="1080" alt="JSON API Output" src="https://github.com/user-attachments/assets/436d057f-c1aa-4e46-94e0-92c6978a07a4" />
