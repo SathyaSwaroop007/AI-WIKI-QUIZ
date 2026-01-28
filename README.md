@@ -283,5 +283,3 @@ DB_CONFIG = {
 <img src="https://github.com/user-attachments/assets/436d057f-c1aa-4e46-94e0-92c6978a07a4" width="100%" />
 
 ---
-
-This is not a demo project — it is a complete system.
