@@ -24,7 +24,7 @@ app.add_middleware(
 )
 
 # Configure Gemini API
-GEMINI_API_KEY = "Gemini_API_KEY"
+GEMINI_API_KEY = "AIzaSyABCoCTQ4hwd5O8-oWjnZ2j2H02qYa1Xis"
 genai.configure(api_key=GEMINI_API_KEY)
 
 # MySQL Database Configuration
