@@ -17,6 +17,25 @@ An AI-powered web application that generates quizzes from Wikipedia articles. Sc
 
 ---
 
+---
+
+## Tech Stack
+
+### Frontend
+- React (Create React App)
+- Vercel
+
+### Backend
+- FastAPI  
+- Uvicorn  
+- Google Gemini API  
+- MySQL  
+- BeautifulSoup  
+- Requests  
+- Pydantic  
+
+---
+
 ## Project Structure
 
 ```
@@ -29,23 +48,6 @@ AI_WIKI/
 ├── frontend/src                 # React frontend
 └── README.md                    # Project documentation
 ```
-
----
-
-## Tech Stack
-
-**Backend:**
-
-* Framework: FastAPI 0.104.1
-* Server: Uvicorn 0.24.0
-* Database: MySQL with `mysql-connector-python` 8.2.0
-* API Integration: Google Gemini
-* Web Scraping: BeautifulSoup4 4.12.2
-* HTTP Client: Requests 2.31.0
-* Data Validation: Pydantic 2.5.0
-* CORS: `fastapi.middleware.cors`
-
----
 
 ## Installation
 
