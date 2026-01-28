@@ -1,74 +1,19 @@
-# WikiQuiz AI 🧠  
-**Turn Wikipedia into interactive learning — instantly**
+# Wikipedia Quiz Generator
 
-WikiQuiz AI is a full-stack application that converts Wikipedia articles into structured, high-quality quizzes using Generative AI.
-
-Instead of passively reading long articles, users can actively test their understanding through automatically generated questions, explanations, and difficulty levels — all powered by a production-ready backend.
-
-This project demonstrates **backend engineering**, **AI integration**, and **API-first system design**.
+An AI-powered web application that generates quizzes from Wikipedia articles. Scrapes article content, processes it with Google Gemini API, and stores quizzes in a MySQL database.
 
 ---
 
-## Why WikiQuiz AI?
+## Features
 
-Wikipedia is one of the richest knowledge bases in the world, but learning from it is mostly passive.
-
-WikiQuiz AI transforms reading into **active learning** by generating quizzes directly from Wikipedia articles.
-
----
-
-## What It Does
-
-1. Accepts a Wikipedia article URL  
-2. Scrapes and cleans article content  
-3. Generates quiz questions using Google Gemini  
-4. Applies strict rules for consistency  
-5. Stores quizzes and questions in MySQL  
-6. Exposes everything via a REST API  
-
----
-
-## Key Features
-
-- AI-generated quizzes with explanations  
-- Difficulty levels: Easy, Medium, Hard  
-- Deterministic quiz structure  
-- Quiz history with timestamps  
-- AI-suggested related topics  
-- RESTful FastAPI backend  
-- Persistent MySQL storage  
-
----
-
-## System Architecture
-
-```
-React Frontend
-      ↓
-FastAPI Backend
-      ↓
-Wikipedia Scraper (BeautifulSoup)
-      ↓
-Google Gemini API
-      ↓
-MySQL Database
-```
-
----
-
-## Tech Stack
-
-### Backend
-- FastAPI
-- Uvicorn
-- Google Gemini API
-- MySQL
-- BeautifulSoup
-- Requests
-- Pydantic
-
-### Frontend
-- React
+* **Wikipedia Article Scraping:** Automatically extract content from Wikipedia articles.
+* **AI-Powered Quiz Generation:** Uses Google Gemini for contextual quiz questions.
+* **MySQL Database:** Persistent storage for quizzes, questions, and history.
+* **RESTful API:** FastAPI backend with full CORS support.
+* **Quiz History:** Track all generated quizzes with timestamps.
+* **Related Topics:** AI-generated list of related topics.
+* **Difficulty Levels:** Questions categorized as easy, medium, or hard.
+* **Detailed Explanations:** Each question includes an explanation for the correct answer.
 
 ---
 
@@ -77,44 +22,66 @@ MySQL Database
 ```
 AI_WIKI/
 ├── backend/
-│   ├── main.py
-│   ├── requirements.txt
-│   ├── myenv/
-│   └── test_gemini.py
-├── frontend/
-│   └── src/
-└── README.md
+│   ├── main.py                 # FastAPI backend
+│   ├── requirements.txt         # Python dependencies
+│   ├── myenv/                   # Virtual environment
+│   └── test_gemini.py           # Gemini API testing
+├── frontend/src                 # React frontend
+└── README.md                    # Project documentation
 ```
 
 ---
 
-## Installation & Setup
+## Tech Stack
 
-### 1. Navigate to Backend
+**Backend:**
+
+* Framework: FastAPI 0.104.1
+* Server: Uvicorn 0.24.0
+* Database: MySQL with `mysql-connector-python` 8.2.0
+* API Integration: Google Gemini
+* Web Scraping: BeautifulSoup4 4.12.2
+* HTTP Client: Requests 2.31.0
+* Data Validation: Pydantic 2.5.0
+* CORS: `fastapi.middleware.cors`
+
+---
+
+## Installation
+
+1. **Clone Project & Navigate:**
+
 ```bash
 cd backend
 ```
 
-### 2. Create Virtual Environment
+2. **Create Virtual Environment:**
+
 ```bash
 python -m venv myenv
 ```
 
-### 3. Activate Environment (Windows)
+3. **Activate Virtual Environment:**
+
+* Windows CMD:
+
 ```bash
-.\myenv\Scripts\Activate
+myenv\Scripts\activate
 ```
 
-### 4. Install Dependencies
+* PowerShell:
+
+```bash
+.\myenv\Scripts\Activate.ps1
+```
+
+4. **Install Dependencies:**
+
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## Database Setup
-
-Ensure MySQL is running, then execute:
+5. **Configure MySQL Database:**
 
 ```sql
 CREATE USER 'quiz_user'@'localhost' IDENTIFIED BY 'quiz_password_123';
@@ -123,115 +90,177 @@ GRANT ALL PRIVILEGES ON wiki_quiz_db.* TO 'quiz_user'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-⚠️ Update credentials before production use.
+> ⚠️ Change the password in `main.py` before production.
 
----
-
-## Gemini API Configuration
-
-In `main.py`:
+6. **Configure Gemini API:**
 
 ```python
-GEMINI_API_KEY = "YOUR_API_KEY"
+GEMINI_API_KEY = "YOUR_ACTUAL_API_KEY_HERE"
 ```
 
-Get your API key from Google AI Studio.
+Get API key from Google AI Studio.
 
 ---
 
 ## Running the Application
 
+**Start Backend Server:**
+
 ```bash
-python -m uvicorn main:app --reload
+# Activate venv first (if not already)
+.\myenv\Scripts\Activate.ps1
+
+# Run FastAPI server
+python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Server URL:
-```
-http://127.0.0.1:8000
+**Access:**
+
+* API Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+* ReDoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+* Health Check: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+**Expose to LAN/External:**
+
+```bash
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### API Docs
-- Swagger UI: `/docs`
-- ReDoc: `/redoc`
+Access via `http://YOUR_IP:8000`.
 
 ---
 
 ## API Endpoints
 
-### Health Check
-```
-GET /
+### 1. Health Check
+
+**GET /**
+
+```bash
+curl http://127.0.0.1:8000/
 ```
 
-### Generate Quiz
-```
-POST /generate-quiz
+**Response:**
+
+```json
+{
+  "message": "Wikipedia Quiz Generator API",
+  "status": "active"
+}
 ```
 
-Request Body:
+### 2. Generate Quiz
+
+**POST /generate-quiz**
+
 ```json
 {
   "url": "https://en.wikipedia.org/wiki/Artificial_intelligence"
 }
 ```
 
-### Get All Quizzes
+**Response:** Full quiz object including questions, options, explanations, and related topics.
+
+### 3. Get All Quizzes
+
+**GET /quizzes**
+**Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "url": "https://en.wikipedia.org/wiki/Artificial_intelligence",
+    "article_title": "Artificial intelligence",
+    "question_count": 7,
+    "created_at": "2025-11-15T10:30:00.123456"
+  }
+]
 ```
-GET /quizzes
+
+### 4. Get Specific Quiz
+
+**GET /quiz/{quiz_id}**
+**Example:**
+
+```bash
+curl http://127.0.0.1:8000/quiz/1
 ```
 
-### Get Quiz by ID
+**Response:** Returns complete quiz with all questions.
+
+---
+
+## Database Schema
+
+**quizzes Table:**
+
+```sql
+CREATE TABLE quizzes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    url VARCHAR(500) NOT NULL,
+    article_title VARCHAR(500) NOT NULL,
+    article_summary TEXT,
+    related_topics JSON,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 ```
-GET /quiz/{quiz_id}
+
+**questions Table:**
+
+```sql
+CREATE TABLE questions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    quiz_id INT NOT NULL,
+    question_text TEXT NOT NULL,
+    options JSON NOT NULL,
+    correct_answer VARCHAR(10) NOT NULL,
+    explanation TEXT,
+    difficulty VARCHAR(20),
+    FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE
+);
 ```
 
 ---
 
-## Quiz Generation Rules
+## Quiz Generation Logic
 
-- Exactly 7 questions  
-- 4 options per question (A–D)  
-- Difficulty distribution:
-  - 2–3 Easy  
-  - 3–4 Medium  
-  - 1–2 Hard  
-- Short explanation for every answer  
-- 5 related topics  
+1. Scrape Wikipedia: Title, summary, main content
+2. Clean content: Remove citations, normalize whitespace
+3. Prompt Gemini: Generate quiz JSON
+4. Parse response: Validate structure
+5. Save to DB
+6. Return quiz to client
 
----
+**Quiz Requirements:**
 
-## Database Design
-
-### quizzes Table
-- Article URL  
-- Title  
-- Summary  
-- Related topics (JSON)  
-- Created timestamp  
+* 7 questions per quiz
+* 4 options per question (A, B, C, D)
+* Difficulty: 2-3 easy, 3-4 medium, 1-2 hard
+* 1-2 sentence explanations
+* 5 related topics
 
 ---
 
-## Common Errors Handled
+## Configuration (main.py)
 
-- Invalid Wikipedia URL  
-- Article too short  
-- Gemini API failure  
-- Database connection issues  
+```python
+DB_CONFIG = {
+    'host': 'localhost',
+    'user': 'quiz_user',
+    'password': 'quiz_password_123', # change before production
+    'database': 'wiki_quiz_db'
+}
+```
 
----
+## Common Error
 
-## Future Enhancements
+**Invalid Wikipedia URL**
 
-- User authentication  
-- Multi-language support  
-- Custom quiz length  
-- Difficulty-based filtering  
-- Shareable quiz links  
-- Analytics dashboard  
-- PDF / CSV export  
-- Live quiz mode  
+* Correct: `https://en.wikipedia.org/wiki/Artificial_intelligence`
+* Incorrect: `https://wikipedia.org/wiki/Artificial_intelligence`
+* Incorrect: `https://en.wikipedia.org/w/index.php?title=Artificial_intelligence`
 
----
 
 ## Screenshots
 
